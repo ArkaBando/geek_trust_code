@@ -1,4 +1,4 @@
-package in.geektrust.lengaburu.traffic;
+package in.geektrust.lengaburu.traffic.old;
 
 import java.util.Scanner;
 

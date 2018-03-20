@@ -2,20 +2,16 @@ package in.geektrust.lengaburu.traffic;
 
 import in.geektrust.lengaburu.traffic.domain.Result;
 import in.geektrust.lengaburu.traffic.domain.Routes;
-import in.geektrust.lengaburu.traffic.domain.Vehicles;
-import in.geektrust.lengaburu.traffic.domain.Weather;
 import in.geektrust.lengaburu.traffic.util.RoutesUtil;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Scanner;
-
+/**
+ * 
+ * @author arka
+ *
+ */
 public class LengaburuTrafficProblem2 {
-	
-	
 	
 	public static void main(String[] args) {
 		

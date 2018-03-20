@@ -1,16 +1,15 @@
 package in.geektrust.lengaburu.traffic.util;
 
+import in.geektrust.lengaburu.traffic.domain.Result;
+import in.geektrust.lengaburu.traffic.domain.Routes;
+import in.geektrust.lengaburu.traffic.domain.Vehicles;
+import in.geektrust.lengaburu.traffic.domain.Weather;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
-
-import in.geektrust.lengaburu.traffic.domain.Result;
-import in.geektrust.lengaburu.traffic.domain.Routes;
-import in.geektrust.lengaburu.traffic.domain.Vehicles;
-import in.geektrust.lengaburu.traffic.domain.Weather;
 
 
 public final class RoutesUtil {
