@@ -39,7 +39,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<mainClass>in.geektrust.lengaburu.traffic.LengaburuTraffic</mainClass>
+					<mainClass>in.geektrust.lengaburu.traffic.LengaburuTrafficProblem2</mainClass>
 					<cleanupDaemonThreads>false</cleanupDaemonThreads>
 				</configuration>
 			</plugin>

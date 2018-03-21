@@ -1,5 +1,10 @@
 package in.geektrust.intergalactic_cricket_game;
 
+import in.geektrust.intergalactic_cricket_game.util.DefaultRandomNumberGenerator;
+
+import java.util.Arrays;
+import java.util.List;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -33,6 +38,10 @@ public class AppTest
      */
     public void testApp()
     {
-        assertTrue( true );
+        List<Integer> actualList =  (List<Integer>) Arrays.asList(20,30,40,50);
+        List<Float> weightedList =  (List<Float>) Arrays.asList(0.5F,0.2F,0.1F,0.2F);
+        DefaultRandomNumberGenerator defaultRandomNumberGenerator = new DefaultRandomNumberGenerator(actualList, weightedList);
+        int value = defaultRandomNumberGenerator.generateWeightBasedRandomNumber();
+        assertTrue(value>0);
     }
 }
