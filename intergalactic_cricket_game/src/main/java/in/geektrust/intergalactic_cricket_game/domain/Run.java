@@ -6,6 +6,7 @@ public class Run {
 	private Integer totalRunScored;
 	private Integer requiredRun;
 	private Integer netRunRequiredForWinning;
+	private Integer currentlyScoredRun;
 	
 	public Run(Integer totalRunScored, Integer requiredRun,
 			Integer netRunRequiredForWinning) {
@@ -36,5 +37,13 @@ public class Run {
 	
 	public Run nextRun(GameSimulatorContext gameContext){
 		return gameContext.nextRun();
+	}
+
+	public Integer getCurrentlyScoredRun() {
+		return currentlyScoredRun;
+	}
+
+	public void setCurrentlyScoredRun(Integer currentlyScoredRun) {
+		this.currentlyScoredRun = currentlyScoredRun;
 	}
 }

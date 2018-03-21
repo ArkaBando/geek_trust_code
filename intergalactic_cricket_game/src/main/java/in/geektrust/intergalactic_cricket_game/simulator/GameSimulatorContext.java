@@ -1,5 +1,6 @@
 package in.geektrust.intergalactic_cricket_game.simulator;
 
+import in.geektrust.intergalactic_cricket_game.CricketRule;
 import in.geektrust.intergalactic_cricket_game.domain.BallingOver;
 import in.geektrust.intergalactic_cricket_game.domain.Batsmen;
 import in.geektrust.intergalactic_cricket_game.domain.Run;
@@ -11,12 +12,14 @@ import in.geektrust.intergalactic_cricket_game.util.ScoreCalculator;
  * @author arka
  *
  */
-public abstract class GameSimulatorContext implements BaseCricketGameSimulator{
-	private BallingOver ballingOver;
+public abstract class GameSimulatorContext implements BaseCricketGameSimulator , CricketRule{
+	
+	protected BallingOver ballingOver;
 	protected Batsmen batsmenOnStrike;
 	protected Batsmen batsmenOffStrike;
 	private ScoreCalculator scroreCalculator;
 	protected static Run run;
+	protected int netRunRequiredForWinning = 40;
 	
 	public GameSimulatorContext(BallingOver ballingOver,
 			Batsmen batsmenOnStrike, Batsmen batsmenOffStrike) {
@@ -45,15 +48,16 @@ public abstract class GameSimulatorContext implements BaseCricketGameSimulator{
 		applyConstraintBeforeTakingRun();
 		int totalRunScored = run.getTotalRunScored();
 		int currentScore = scroreCalculator.calculateScore();
-		
+		run.setCurrentlyScoredRun(currentScore);
+		if(currentScore > 0){
 		totalRunScored += currentScore;
 		run.setTotalRunScored(totalRunScored);
-		//apply rules
-		applyConstraintAfterTakingRun();
 		int requiredRun = run.getRequiredRun(); 
 		run.setRequiredRun(requiredRun-currentScore);
-		// TODO Auto-generated method stub
-		return null;
+		}
+		applyConstraintAfterTakingRun();
+
+		return run;
 	}
 
 	

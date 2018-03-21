@@ -19,14 +19,14 @@ public class PlayerScoreProbability {
 	public PlayerScoreProbability(float dotBall, float oneRun, float twoRun,
 			float threeRun, float fourRun, float fiveRun, float sixRun, float out) {
 		super();
-		this.dotBall = dotBall;
-		this.oneRun = oneRun;
-		this.twoRun = twoRun;
-		this.threeRun = threeRun;
-		this.fourRun = fourRun;
-		this.fiveRun = fiveRun;
-		this.sixRun = sixRun;
-		this.out = out;
+		this.dotBall = dotBall/100;
+		this.oneRun = oneRun/100;
+		this.twoRun = twoRun/100;
+		this.threeRun = threeRun/100;
+		this.fourRun = fourRun/100;
+		this.fiveRun = fiveRun/100;
+		this.sixRun = sixRun/100;
+		this.out = out/100;
 	}
 
 	public float getDotBall() {

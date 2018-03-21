@@ -46,7 +46,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<mainClass>in.geektrust.lengaburu.traffic.LengaburuTrafficProblem2</mainClass>
+					<mainClass>in.geektrust.intergalactic_cricket_game.App</mainClass>
 					<cleanupDaemonThreads>false</cleanupDaemonThreads>
 				</configuration>
 			</plugin>

@@ -26,9 +26,9 @@ public class Batsmen extends Player{
 		this.ballTaken = ballTaken;
 	}
 	
-	public void changeSideOnComplitionOfOver(Batsmen batsmenOnStrike , Batsmen batsmenOffStrike){
+	/*public void changeSide(Batsmen batsmenOnStrike , Batsmen batsmenOffStrike){
 		Batsmen temp = batsmenOnStrike;
 		batsmenOnStrike = batsmenOffStrike;
 		batsmenOffStrike = temp;
 	}
-}
+*/}
