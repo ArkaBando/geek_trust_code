@@ -12,7 +12,8 @@ public interface BaseCricketGameSimulator {
 	String outPlayerStatus =" %s %s got out";
 	String overStatus = "\n%d overs left. %d runs to win  \n";
 	String enchaiWinningMessage = "\n "+Team.Enchai.name()+" won by %d runs. \n";
-	
+	String chaseSideWinningMessage = "\n %s won with %d balls remaining";
+	String scoringSideWinningMessage = "\n %s won with %d runs remaining";
 	List<Integer> allocatedScoreList = (List<Integer>) Arrays.asList(0,1,2,3,4,5,6,-1);	
 
 }
