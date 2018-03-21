@@ -8,6 +8,7 @@ import in.geektrust.intergalactic_cricket_game.simulator.GameSimulatorContext;
  *
  */
 public class BallingOver {
+	private static final int noOfballsInAOver = 6;
 	private int remainingOver;
 	private int remainingBalls;
 	private int initialOverCount;
@@ -18,7 +19,7 @@ public class BallingOver {
 		this.initialOverCount = remainingOver;
 		this.remainingOver = remainingOver;
 		this.ballingTeam = bowlingTeam;
-		this.remainingBalls = 6 * remainingOver;
+		this.remainingBalls = BallingOver.noOfballsInAOver * remainingOver;
 	}
 
 	public int getRemainingOver() {
@@ -30,9 +31,6 @@ public class BallingOver {
 	}
 	
 	public BallingOver nextBall(GameSimulatorContext gameContext){		
-		if(remainingBalls%6 == 0){
-			//log error message from gameContext
-		}
 		BallingOver ballingOver = gameContext.nextBall();
 		return ballingOver;
 	}

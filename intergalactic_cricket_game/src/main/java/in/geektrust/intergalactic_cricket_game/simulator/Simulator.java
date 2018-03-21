@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import in.geektrust.intergalactic_cricket_game.domain.BallingOver;
 import in.geektrust.intergalactic_cricket_game.domain.Batsmen;
 import in.geektrust.intergalactic_cricket_game.domain.Run;
+import in.geektrust.intergalactic_cricket_game.domain.Team;
 
 /**
  * On demand constraint has been added to Simulator while batting and balling
@@ -16,6 +17,8 @@ import in.geektrust.intergalactic_cricket_game.domain.Run;
  *
  */
 public class Simulator extends GameSimulatorContext {
+	private static final int noOfBallsInaOver = 6;
+	private boolean IsSimulatorProcessComplete = false;
 	// can be delegated to other services but for simplicity I have kept here
 	HashMap<String, Batsmen> batsmenRunsSummary = new HashMap<String, Batsmen>();
 	List<Batsmen> batsmenList;
@@ -41,6 +44,7 @@ public class Simulator extends GameSimulatorContext {
 	}
 
 	public void play() {
+		
 		BallingOver ball = ballingOver;
 		Run currentRun = run;
 		do {
@@ -49,16 +53,20 @@ public class Simulator extends GameSimulatorContext {
 			if (isMatchWon()) {
 				return;
 			}
-		} while (ball.getRemainingBalls() != 0);
+		} while (ball.getRemainingBalls() != 0 && !IsSimulatorProcessComplete);
 
 		if (!isMatchWon()) {
 			processMatchLoss();
 		}
+	
+		
 	}
 
 	private void processMatchLoss() {
+		if(IsSimulatorProcessComplete == false)
 		System.out.printf(enchaiWinningMessage, run.getRequiredRun());
-		System.exit(0);
+		IsSimulatorProcessComplete = true;
+		//throw new IllegalStateException("Process Complete : "+Team.Lengaburu+" lost");
 	}
 
 	/**
@@ -70,7 +78,7 @@ public class Simulator extends GameSimulatorContext {
 		int balltaken = batsmenOnStrike.getBallTaken() + 1;
 		String currentOver = ballingOver.getInitialOverCount()
 				- (ballingOver.getRemainingOver() + 1) + "."
-				+ (6 - ballingOver.getRemainingBalls() % 6);
+				+ (Simulator.noOfBallsInaOver - ballingOver.getRemainingBalls() % Simulator.noOfBallsInaOver);
 		batsmenOnStrike.setBallTaken(balltaken);
 
 		if (run.getCurrentlyScoredRun() >= 0) {
@@ -81,7 +89,8 @@ public class Simulator extends GameSimulatorContext {
 
 		if (isMatchWon()) {
 			processWin();
-			System.exit(0);
+			IsSimulatorProcessComplete = true;
+			//throw new IllegalStateException("Process Complete : "+Team.Lengaburu+" won");
 		}
 
 	}
@@ -102,7 +111,8 @@ public class Simulator extends GameSimulatorContext {
 			batsmenOnStrike = batsmenOffStrike;
 			batsmenOffStrike = temp;
 		}
-		if (ballingOver.getRemainingBalls() % 6 == 0) {
+		
+		if (ballingOver.getRemainingBalls() % Simulator.noOfBallsInaOver == 0) {
 			Batsmen temp = batsmenOnStrike;
 			batsmenOnStrike = batsmenOffStrike;
 			batsmenOffStrike = temp;
@@ -115,8 +125,8 @@ public class Simulator extends GameSimulatorContext {
 				.put(batsmenOnStrike.getPlayerName(), batsmenOnStrike);
 		System.out.println(String.format(outPlayerStatus, currentOver,
 				batsmenOnStrike.getPlayerName()));
+		
 		if (noOfOutBatsmen < (batsmenList.size() - 2)) {
-
 			batsmenOnStrike = batsmenList.get(noOfOutBatsmen + 2);
 		} else if (!isMatchWon()) {
 			processMatchLoss();
@@ -132,9 +142,9 @@ public class Simulator extends GameSimulatorContext {
 	@Override
 	public void applyConstraintBeforeBalling() {
 		// TODO Auto-generated method stub
-		if (ballingOver.getRemainingBalls() % 6 == 0) {
+		if (ballingOver.getRemainingBalls() % Simulator.noOfBallsInaOver == 0) {
 			System.out.println(String.format(overStatus,
-					ballingOver.getRemainingBalls() / 6, run.getRequiredRun()));
+					ballingOver.getRemainingBalls() / Simulator.noOfBallsInaOver, run.getRequiredRun()));
 		}
 	}
 
@@ -146,7 +156,8 @@ public class Simulator extends GameSimulatorContext {
 
 	private void processWin() {
 		int remaingBalls = ballingOver.getRemainingBalls();
-		int wicketInHand = 2 - noOfOutBatsmen;
+		int initialNoOfBatsmenInTheCrease = 2;
+		int wicketInHand = initialNoOfBatsmenInTheCrease - noOfOutBatsmen;
 		// batsmenList
 		List<String> alreadyVisitedBatsmen = new ArrayList<String>();
 		System.out.printf(winningMessage, wicketInHand, remaingBalls);
