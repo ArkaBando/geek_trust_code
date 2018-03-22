@@ -1,7 +1,7 @@
 package in.geektrust.lengaburu.traffic.util;
 
 import in.geektrust.lengaburu.traffic.domain.Result;
-import in.geektrust.lengaburu.traffic.domain.Route;
+import in.geektrust.lengaburu.traffic.domain.Orbit;
 import in.geektrust.lengaburu.traffic.domain.Vehicle;
 import in.geektrust.lengaburu.traffic.domain.Weather;
 
@@ -31,7 +31,7 @@ public final class RoutesUtil {
 	
 	//choose between orbit 1 or orbit2 , let orbit x = orbit1 or orbit2
 	//choose between orbit3 + orbit4 or orbit x + orbit4
-	public static final List<Result> calculateBestRouteForMultipleDestination(Vehicle [] vehicles,Route [] routes,String todaysWeather){
+	public static final List<Result> calculateBestRouteForMultipleDestination(Vehicle [] vehicles,Orbit [] routes,String todaysWeather){
 			
 			List<Result> resultList = new ArrayList<Result>(); 
 			Map<String,Result> orbitX = new HashMap<>();
@@ -56,14 +56,14 @@ public final class RoutesUtil {
 				String src = "";
 				String dest = "";
 				for(int i=0;i<2;i++){
-					Route route = routes[i];
-					src = route.getSource();
-					dest = route.getDestination();
-					int maxPermissibleSpeed = route.getMaxPermissibleSpeed();
-					long distance = route.getPathDistance(); 
+					Orbit route = routes[i];
+					src = route.getOrbitStartingPoint();
+					dest = route.getOrbitEndingPoint();
+					int maxPermissibleSpeed = route.getTrafficSpeed();
+					long distance = route.getOrbitLength(); 
 					int vehicleSpeed = vehicle.getVechileSpeed() > maxPermissibleSpeed ?
 							maxPermissibleSpeed : vehicle.getVechileSpeed();
-					long pothHolesCount = route.getPathHoles();
+					long pothHolesCount = route.getCraterCount();
 					
 					int totalTimeInMinutes = (int) (((float)distance / (float)vehicleSpeed) * 60
 							+ (pothHolesCount+ (pothHolesCount* changeInPothHoles / 100))
@@ -72,7 +72,7 @@ public final class RoutesUtil {
 					if(minTravelTime == -1 || minTravelTime > totalTimeInMinutes){
 						minTravelTime = totalTimeInMinutes;
 						bestVehicleName = vehicleName;
-						currentRoute = route.getPathName();
+						currentRoute = route.getOrbitName();
 					}
 				}
 				Result result = new Result(minTravelTime, bestVehicleName, currentRoute);
@@ -80,40 +80,40 @@ public final class RoutesUtil {
 				result.setDest(dest);
 				orbitX.put(vehicleName, result);
 				
-				Route route = routes[2];
-				src = route.getSource();
-				dest = route.getDestination();
-				int maxPermissibleSpeed = route.getMaxPermissibleSpeed();
-				long distance = route.getPathDistance(); 
+				Orbit route = routes[2];
+				src = route.getOrbitStartingPoint();
+				dest = route.getOrbitEndingPoint();
+				int maxPermissibleSpeed = route.getTrafficSpeed();
+				long distance = route.getOrbitLength(); 
 				int vehicleSpeed = vehicle.getVechileSpeed() > maxPermissibleSpeed ?
 						maxPermissibleSpeed : vehicle.getVechileSpeed();
-				long pothHolesCount = route.getPathHoles();
+				long pothHolesCount = route.getCraterCount();
 				
 				int totalTimeInMinutes = (int) (((float)distance / (float)vehicleSpeed) * 60
 						+ (pothHolesCount+ (pothHolesCount* changeInPothHoles / 100))
 								* timeTakenToTravelPothhole);
-				src = route.getSource();
-				dest = route.getDestination();
-				result = new Result(totalTimeInMinutes, vehicle.getVechileType(), route.getPathName());
+				src = route.getOrbitStartingPoint();
+				dest = route.getOrbitEndingPoint();
+				result = new Result(totalTimeInMinutes, vehicle.getVechileType(), route.getOrbitName());
 				result.setSrc(src);
 				result.setDest(dest);
 				orbit3.put(vehicleName, result);
 				
 				route = routes[3];
-				src = route.getSource();
-				dest = route.getDestination();
-				maxPermissibleSpeed = route.getMaxPermissibleSpeed();
-				distance = route.getPathDistance(); 
+				src = route.getOrbitStartingPoint();
+				dest = route.getOrbitEndingPoint();
+				maxPermissibleSpeed = route.getTrafficSpeed();
+				distance = route.getOrbitLength(); 
 				vehicleSpeed = vehicle.getVechileSpeed() > maxPermissibleSpeed ?
 						maxPermissibleSpeed : vehicle.getVechileSpeed();
-				pothHolesCount = route.getPathHoles();
+				pothHolesCount = route.getCraterCount();
 				
 				totalTimeInMinutes = (int) (((float)distance / (float)vehicleSpeed) * 60
 						+ (pothHolesCount+ (pothHolesCount* changeInPothHoles / 100))
 								* timeTakenToTravelPothhole);
-				src = route.getSource();
-				dest = route.getDestination();
-				result = new Result(totalTimeInMinutes, vehicle.getVechileType(), route.getPathName());
+				src = route.getOrbitStartingPoint();
+				dest = route.getOrbitEndingPoint();
+				result = new Result(totalTimeInMinutes, vehicle.getVechileType(), route.getOrbitName());
 				result.setSrc(src);
 				result.setDest(dest);
 				orbit4.put(vehicleName, result);
@@ -162,17 +162,17 @@ public final class RoutesUtil {
 	 * @param destination
 	 * @return
 	 */
-public static List<Result> calculateBestRoute(Vehicle [] vehicles,Route [] routes,String todaysWeather,String source,String destination){
+public static List<Result> calculateBestRoute(Vehicle [] vehicles,Orbit [] routes,String todaysWeather,String source,String destination){
 		
 		List<Result> resultList = new ArrayList<Result>(); 
 		
-		for(Route route : routes){
+		for(Orbit route : routes){
 			
-			if(!(route.getSource().equalsIgnoreCase(source) && route.getDestination().equalsIgnoreCase(destination)))  continue;
+			if(!(route.getOrbitStartingPoint().equalsIgnoreCase(source) && route.getOrbitEndingPoint().equalsIgnoreCase(destination)))  continue;
 			
-			int maxPermissibleSpeed = route.getMaxPermissibleSpeed();
-			long distance = route.getPathDistance();
-			long pothHolesCount = route.getPathHoles();
+			int maxPermissibleSpeed = route.getTrafficSpeed();
+			long distance = route.getOrbitLength();
+			long pothHolesCount = route.getCraterCount();
 			int minTravelTime  = -1;
 			String bestVehicleName = "";
 			String currentRoute = "";
@@ -201,7 +201,7 @@ public static List<Result> calculateBestRoute(Vehicle [] vehicles,Route [] route
 					if(minTravelTime == -1 || minTravelTime > totalTimeInMinutes){
 						minTravelTime = totalTimeInMinutes;
 						bestVehicleName = vehicleName;
-						currentRoute = route.getPathName();
+						currentRoute = route.getOrbitName();
 					}
 				}
 			}

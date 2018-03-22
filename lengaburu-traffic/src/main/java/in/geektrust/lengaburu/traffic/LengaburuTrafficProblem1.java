@@ -1,7 +1,7 @@
 package in.geektrust.lengaburu.traffic;
 
 import in.geektrust.lengaburu.traffic.domain.Result;
-import in.geektrust.lengaburu.traffic.domain.Route;
+import in.geektrust.lengaburu.traffic.domain.Orbit;
 import in.geektrust.lengaburu.traffic.util.RoutesUtil;
 
 import java.util.List;
@@ -27,10 +27,10 @@ public class LengaburuTrafficProblem1 {
 		String source =  "SilkDorb";
 		String destination = "Hallitharam";
 		
-		Route orbit1 = new Route("Orbit1", 20L, 10L, Integer.parseInt(mangalrokaSpeed),source,destination);
-		Route orbit2 = new Route("Orbit2", 18L, 20L, Integer.parseInt(dellanburuSpeed),source,destination);
+		Orbit orbit1 = new Orbit("Orbit1", 20L, 10, Integer.parseInt(mangalrokaSpeed),source,destination);
+		Orbit orbit2 = new Orbit("Orbit2", 18L, 20, Integer.parseInt(dellanburuSpeed),source,destination);
 		
-		List<Result> resultList = RoutesUtil.calculateBestRoute(RoutesUtil.vehicles,new Route[]{orbit1,orbit2},weather,source,destination);
+		List<Result> resultList = RoutesUtil.calculateBestRoute(RoutesUtil.vehicles,new Orbit[]{orbit1,orbit2},weather,source,destination);
 		System.out.println(resultList.get(0));
 	}
 	
