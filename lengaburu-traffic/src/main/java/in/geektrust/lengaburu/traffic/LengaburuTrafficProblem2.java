@@ -1,10 +1,8 @@
 package in.geektrust.lengaburu.traffic;
 
-import in.geektrust.lengaburu.traffic.domain.Result;
+import in.geektrust.lengaburu.traffic.context.ProblemContext;
 import in.geektrust.lengaburu.traffic.domain.Orbit;
-import in.geektrust.lengaburu.traffic.util.RoutesUtil;
 
-import java.util.List;
 import java.util.Scanner;
 /**
  * 
@@ -17,31 +15,30 @@ public class LengaburuTrafficProblem2 {
 		
 		
 		System.out.println("weather is:");
+		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		String weather = scanner.nextLine();
-		System.out.println("Orbit 1 traffic speed is");
-		String orbit1Input = scanner.nextLine();
-		System.out.println("Orbit 2 traffic speed is");
-		String orbit2Input = scanner.nextLine();
-		System.out.println("Orbit 3 traffic speed is");
-		String orbit3Input = scanner.nextLine();
-		System.out.println("Orbit 4 traffic speed is");
-		String orbit4Input = scanner.nextLine();
-		
+		System.out.print("Orbit 1 traffic speed is ");
+		int orbit1Input = scanner.nextInt();
+		System.out.print("megamiles/hr \n Orbit 2 traffic speed is");
+		int orbit2Input = scanner.nextInt();
+		System.out.print(" megamiles/hr \n Orbit 3 traffic speed is");
+		int orbit3Input = scanner.nextInt();
+		System.out.print(" megamiles/hr \n Orbit 4 traffic speed is ");
+		int orbit4Input = scanner.nextInt();
+		System.out.print(" megamiles/hr \n");
 		String source =  "SilkDorb";
 		String destination1 = "Hallitharam";
 		String destination2 = "RKPuram";
 		
-		Orbit orbit1 = new Orbit("Orbit1", 18L, 20, Integer.parseInt(orbit1Input),source,destination1);
-		Orbit orbit2 = new Orbit("Orbit2", 20L, 10, Integer.parseInt(orbit2Input),source,destination1);
-		Orbit orbit3 = new Orbit("Orbit3", 30L, 15, Integer.parseInt(orbit3Input),source,destination2);
-		Orbit orbit4 = new Orbit("Orbit4", 15L, 18, Integer.parseInt(orbit4Input),destination2,destination1);
+		Orbit orbit1 = new Orbit("Orbit1", 18L, 20, orbit1Input,source,destination1);
+		Orbit orbit2 = new Orbit("Orbit2", 20L, 10, orbit2Input,source,destination1);
+		Orbit orbit3 = new Orbit("Orbit3", 30L, 15, orbit3Input,source,destination2);
+		Orbit orbit4 = new Orbit("Orbit4", 15L, 18, orbit4Input,destination2,destination1);
 
 		
-		
-		List<Result> results= RoutesUtil.calculateBestRouteForMultipleDestination(RoutesUtil.vehicles,new Orbit[]{orbit1,orbit2,orbit3,orbit4},weather);
-		Result finalResult[] = results.stream().toArray(Result[]::new);
-		System.out.println(Result.getFormattedOutput(finalResult));
+		ProblemContext problemContext =  new ProblemContext("Problem2");
+		problemContext.solveProblem(new Orbit[]{orbit1,orbit2,orbit3,orbit4}, weather, source, new String[]{destination1,destination2});
 
 	}
 	

@@ -14,12 +14,20 @@ import java.util.Set;
  */
 public final class Orbit {
 
+	public void setOrbitStartingPoint(String orbitStartingPoint) {
+		this.orbitStartingPoint = orbitStartingPoint;
+	}
+
+	public void setOrbitEndingPoint(String orbitEndingPoint) {
+		this.orbitEndingPoint = orbitEndingPoint;
+	}
+
 	private final String orbitName;
 	private final Long orbitLength;
 	private final int craterCount;
 	private final Integer trafficSpeed;
-	private final String orbitStartingPoint;
-	private final String orbitEndingPoint;
+	private String orbitStartingPoint;
+	private String orbitEndingPoint;
 
 	
 	public Orbit(String orbitName, Long orbitLength, int craterCount,
@@ -84,7 +92,7 @@ public final class Orbit {
 	 * @param source
 	 * @return
 	 */
-	public static List<Orbit[]> generateOrbitsforDesiredDestinations(Orbit[] orbitsAvailable,String[] desiredPlacesToBeReached,String source){
+	public static List<Orbit[]> generatePossibleOrbitsforDesiredDestinations(Orbit[] orbitsAvailable,String[] desiredPlacesToBeReached,String source){
 		//to store the ***set of orbit** for reaching a desired destination.
 		Map<String,Set<Orbit>> destinationMap = new HashMap<>();
 		
@@ -121,7 +129,26 @@ public final class Orbit {
 				}
 				
 				Set<Orbit> orbitSet = destinationMap.get(destination);
-				if(destinationMap.size() == 2){
+				
+				switch(destinationMap.size()){
+				case 1: 
+					//if no intermidiate destination exsists
+					noOfWaysOrbitCanBeFormed.add(new Orbit[]{orbit});
+					break;
+				case 2:
+					//for no of intermidiate destination to be 1
+					for(Orbit destinationOrbit : orbitSet){
+						if(!(orbit.getOrbitEndingPoint().equalsIgnoreCase(destinationOrbit.getOrbitEndingPoint())&&
+							 orbit.getOrbitStartingPoint().equalsIgnoreCase(destinationOrbit.getOrbitStartingPoint())) &&
+						   !noOfWaysOrbitCanBeFormed.contains(new Orbit[]{orbit,destinationOrbit}) &&
+						   !noOfWaysOrbitCanBeFormed.contains(new Orbit[]{destinationOrbit,orbit}))
+						noOfWaysOrbitCanBeFormed.add(new Orbit[]{orbit,destinationOrbit});
+					}
+					break;
+				default : break;
+				}
+				
+				/*if(destinationMap.size() == 2){
 					//for no of intermidiate destination to be 1
 					for(Orbit destinationOrbit : orbitSet){
 						if(!(orbit.getOrbitEndingPoint().equalsIgnoreCase(destinationOrbit.getOrbitEndingPoint())&&
@@ -133,7 +160,7 @@ public final class Orbit {
 				} else if(destinationMap.size() == 1){
 					//if no intermidiate destination exsists
 					noOfWaysOrbitCanBeFormed.add(new Orbit[]{orbit});
-				}				
+				}			*/	
 			}
 		}
 	}
@@ -167,7 +194,6 @@ public final class Orbit {
 				}
 			}
 		}
-		System.out.println(destinationMap);
 	}
 	
 	/**

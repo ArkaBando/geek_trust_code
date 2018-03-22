@@ -4,9 +4,9 @@ public final class Weather {
 	
 	private final String weatherName;
 	private final Integer percentageChangeInNumberOfPathHoles;
-	public static final String sunny = "Sunny";
-	public static final String rainy = "Rainy";
-	public static final String windy = "Windy";
+	public static final String SUNNY = "Sunny";
+	public static final String RAINY = "Rainy";
+	public static final String WINDY = "Windy";
 	
 	public Weather(String weatherName,
 			Integer percentageChangeInNumberOfPathHoles) {

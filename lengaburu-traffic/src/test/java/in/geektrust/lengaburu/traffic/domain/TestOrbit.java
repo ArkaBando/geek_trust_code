@@ -1,14 +1,13 @@
 package in.geektrust.lengaburu.traffic.domain;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.Assert.*;
-
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -18,17 +17,6 @@ import org.junit.Test;
  *
  */
 public class TestOrbit {
-/*	public static final Weather sunnyWeather = new Weather(Weather.sunny,-10);
-	public static final Weather rainyWeather = new Weather(Weather.rainy, 20);
-	public static final Weather windyWeather = new Weather(Weather.windy, 0);
-	
-	public static final Vehicle superCar = new Vehicle(new Weather[]{sunnyWeather,rainyWeather,windyWeather},
-			            "Car", 20, 3);
-	public static final Vehicle tuktuk = new Vehicle(new Weather[]{sunnyWeather,rainyWeather},
-            "tuktuk", 12, 1);
-	public static final Vehicle bike = new Vehicle(new Weather[]{sunnyWeather,windyWeather},
-            "bike", 10, 2);
-	public final static Vehicle[] vehicles = new Vehicle[]{superCar,bike,tuktuk};*/
 	
 	public  static Orbit[] orbits  = null;
 	public  static Orbit[] orbits2  = null;
@@ -58,7 +46,7 @@ public class TestOrbit {
 	@Test
 	public void testGenerateOrbitsforDesiredDestinations(){
 		
-		List<Orbit[]> orbitList = Orbit.generateOrbitsforDesiredDestinations(orbits, destinations , source);
+		List<Orbit[]> orbitList = Orbit.generatePossibleOrbitsforDesiredDestinations(orbits, destinations , source);
 		assertEquals(orbitList.size(), 6);
 		
 	}
@@ -66,7 +54,7 @@ public class TestOrbit {
 	@Test
 	public void testGenerateOrbitsforDesiredDestinationsForProblem1(){
 		
-		List<Orbit[]> orbitList = Orbit.generateOrbitsforDesiredDestinations(orbits2, destinations2 , source);
+		List<Orbit[]> orbitList = Orbit.generatePossibleOrbitsforDesiredDestinations(orbits2, destinations2 , source);
 		assertEquals(orbitList.size(), 2);
 	
 	}
@@ -90,14 +78,5 @@ public class TestOrbit {
 		assertTrue(destinationMap.containsKey(destinations2[0]));
 		
 	}
-	
-	/*@After
-	public void tearDown(){
-		orbits  = null;
-		orbits2  = null;
-		destinations  = null;
-		destinations2  = null;
-	}*/
-	
 	
 }

@@ -11,19 +11,19 @@ import in.geektrust.lengaburu.traffic.domain.Weather;
  */
 public interface AppContext {
 
-	public static final Weather sunnyWeather = new Weather(Weather.sunny,-10);
-	public static final Weather rainyWeather = new Weather(Weather.rainy, 20);
-	public static final Weather windyWeather = new Weather(Weather.windy, 0);
+	public static final Weather SUNNYWEATHER = new Weather(Weather.SUNNY,-10);
+	public static final Weather RAINYWEATHER = new Weather(Weather.RAINY, 20);
+	public static final Weather WINDYWEATHER = new Weather(Weather.WINDY, 0);
 	
-	public static final Vehicle superCar = new Vehicle(new Weather[]{sunnyWeather,rainyWeather,windyWeather},
+	public static final Vehicle superCar = new Vehicle(new Weather[]{SUNNYWEATHER,RAINYWEATHER,WINDYWEATHER},
 			            "Car", 20, 3);
-	public static final Vehicle tuktuk = new Vehicle(new Weather[]{sunnyWeather,rainyWeather},
+	public static final Vehicle tuktuk = new Vehicle(new Weather[]{SUNNYWEATHER,RAINYWEATHER},
             "tuktuk", 12, 1);
-	public static final Vehicle bike = new Vehicle(new Weather[]{sunnyWeather,windyWeather},
+	public static final Vehicle bike = new Vehicle(new Weather[]{SUNNYWEATHER,WINDYWEATHER},
             "bike", 10, 2);
 	
 	public final static Vehicle[] vehicles = new Vehicle[]{superCar,bike,tuktuk};
 	
-	public void solveProblem(Orbit [] routes,String weather,String source,String destination);
+	public void solveProblem(Orbit [] routes,String weather,String source,String[] desiredPlacesToBeReached);
 	
 }
