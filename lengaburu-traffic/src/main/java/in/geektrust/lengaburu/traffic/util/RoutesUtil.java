@@ -1,8 +1,8 @@
 package in.geektrust.lengaburu.traffic.util;
 
 import in.geektrust.lengaburu.traffic.domain.Result;
-import in.geektrust.lengaburu.traffic.domain.Routes;
-import in.geektrust.lengaburu.traffic.domain.Vehicles;
+import in.geektrust.lengaburu.traffic.domain.Route;
+import in.geektrust.lengaburu.traffic.domain.Vehicle;
 import in.geektrust.lengaburu.traffic.domain.Weather;
 
 import java.util.ArrayList;
@@ -18,20 +18,20 @@ public final class RoutesUtil {
 	public static final Weather rainyWeather = new Weather(Weather.rainy, 20);
 	public static final Weather windyWeather = new Weather(Weather.windy, 0);
 	
-	public static final Vehicles superCar = new Vehicles(new Weather[]{sunnyWeather,rainyWeather,windyWeather},
+	public static final Vehicle superCar = new Vehicle(new Weather[]{sunnyWeather,rainyWeather,windyWeather},
 			            "Car", 20, 3);
-	public static final Vehicles tuktuk = new Vehicles(new Weather[]{sunnyWeather,rainyWeather},
+	public static final Vehicle tuktuk = new Vehicle(new Weather[]{sunnyWeather,rainyWeather},
             "tuktuk", 12, 1);
-	public static final Vehicles bike = new Vehicles(new Weather[]{sunnyWeather,windyWeather},
+	public static final Vehicle bike = new Vehicle(new Weather[]{sunnyWeather,windyWeather},
             "bike", 10, 2);
 	
-	public final static Vehicles[] vehicles = new Vehicles[]{superCar,bike,tuktuk};
+	public final static Vehicle[] vehicles = new Vehicle[]{superCar,bike,tuktuk};
 	
 	
 	
 	//choose between orbit 1 or orbit2 , let orbit x = orbit1 or orbit2
 	//choose between orbit3 + orbit4 or orbit x + orbit4
-	public static final List<Result> calculateBestRouteForMultipleDestination(Vehicles [] vehicles,Routes [] routes,String todaysWeather){
+	public static final List<Result> calculateBestRouteForMultipleDestination(Vehicle [] vehicles,Route [] routes,String todaysWeather){
 			
 			List<Result> resultList = new ArrayList<Result>(); 
 			Map<String,Result> orbitX = new HashMap<>();
@@ -40,7 +40,7 @@ public final class RoutesUtil {
 
 			Result finalResult1 = null;
 			Result finalResult2 = null;
-			for(Vehicles vehicle : vehicles){
+			for(Vehicle vehicle : vehicles){
 				
 				Weather currentweather = evaluateCurrentWeatherForVehicle(
 						todaysWeather, vehicle);
@@ -56,7 +56,7 @@ public final class RoutesUtil {
 				String src = "";
 				String dest = "";
 				for(int i=0;i<2;i++){
-					Routes route = routes[i];
+					Route route = routes[i];
 					src = route.getSource();
 					dest = route.getDestination();
 					int maxPermissibleSpeed = route.getMaxPermissibleSpeed();
@@ -80,7 +80,7 @@ public final class RoutesUtil {
 				result.setDest(dest);
 				orbitX.put(vehicleName, result);
 				
-				Routes route = routes[2];
+				Route route = routes[2];
 				src = route.getSource();
 				dest = route.getDestination();
 				int maxPermissibleSpeed = route.getMaxPermissibleSpeed();
@@ -142,7 +142,7 @@ public final class RoutesUtil {
 		}
 
 	private static Weather evaluateCurrentWeatherForVehicle(
-			String todaysWeather, Vehicles vehicle) {
+			String todaysWeather, Vehicle vehicle) {
 		Weather currentweather = null;
 		for(Weather weather : vehicle.getWeather()){
 			if(weather.getWeatherName().trim().equalsIgnoreCase(todaysWeather)){
@@ -162,11 +162,11 @@ public final class RoutesUtil {
 	 * @param destination
 	 * @return
 	 */
-public static List<Result> calculateBestRoute(Vehicles [] vehicles,Routes [] routes,String todaysWeather,String source,String destination){
+public static List<Result> calculateBestRoute(Vehicle [] vehicles,Route [] routes,String todaysWeather,String source,String destination){
 		
 		List<Result> resultList = new ArrayList<Result>(); 
 		
-		for(Routes route : routes){
+		for(Route route : routes){
 			
 			if(!(route.getSource().equalsIgnoreCase(source) && route.getDestination().equalsIgnoreCase(destination)))  continue;
 			
@@ -177,7 +177,7 @@ public static List<Result> calculateBestRoute(Vehicles [] vehicles,Routes [] rou
 			String bestVehicleName = "";
 			String currentRoute = "";
 			
-			for(Vehicles vehicle : vehicles){
+			for(Vehicle vehicle : vehicles){
 				Weather currentweather = null;
 				
 				

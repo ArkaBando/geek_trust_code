@@ -1,7 +1,7 @@
 package in.geektrust.lengaburu.traffic;
 
 import in.geektrust.lengaburu.traffic.domain.Result;
-import in.geektrust.lengaburu.traffic.domain.Routes;
+import in.geektrust.lengaburu.traffic.domain.Route;
 import in.geektrust.lengaburu.traffic.util.RoutesUtil;
 
 import java.util.List;
@@ -32,14 +32,14 @@ public class LengaburuTrafficProblem2 {
 		String destination1 = "Hallitharam";
 		String destination2 = "RKPuram";
 		
-		Routes orbit1 = new Routes("Orbit1", 18L, 20L, Integer.parseInt(orbit1Input),source,destination1);
-		Routes orbit2 = new Routes("Orbit2", 20L, 10L, Integer.parseInt(orbit2Input),source,destination1);
-		Routes orbit3 = new Routes("Orbit3", 30L, 15L, Integer.parseInt(orbit3Input),source,destination2);
-		Routes orbit4 = new Routes("Orbit4", 15L, 18L, Integer.parseInt(orbit4Input),destination2,destination1);
+		Route orbit1 = new Route("Orbit1", 18L, 20L, Integer.parseInt(orbit1Input),source,destination1);
+		Route orbit2 = new Route("Orbit2", 20L, 10L, Integer.parseInt(orbit2Input),source,destination1);
+		Route orbit3 = new Route("Orbit3", 30L, 15L, Integer.parseInt(orbit3Input),source,destination2);
+		Route orbit4 = new Route("Orbit4", 15L, 18L, Integer.parseInt(orbit4Input),destination2,destination1);
 
 		
 		
-		List<Result> results= RoutesUtil.calculateBestRouteForMultipleDestination(RoutesUtil.vehicles,new Routes[]{orbit1,orbit2,orbit3,orbit4},weather);
+		List<Result> results= RoutesUtil.calculateBestRouteForMultipleDestination(RoutesUtil.vehicles,new Route[]{orbit1,orbit2,orbit3,orbit4},weather);
 		Result finalResult[] = results.stream().toArray(Result[]::new);
 		System.out.println(Result.getFormattedOutput(finalResult));
 

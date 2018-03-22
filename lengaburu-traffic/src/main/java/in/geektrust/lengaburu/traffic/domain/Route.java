@@ -1,6 +1,6 @@
 package in.geektrust.lengaburu.traffic.domain;
 
-public final class Routes {
+public final class Route {
 
 	private final String pathName;
 	private final Long pathDistance;
@@ -11,7 +11,7 @@ public final class Routes {
 
 	
 
-	public Routes(String pathName, Long pathDistance, Long pathHoles,
+	public Route(String pathName, Long pathDistance, Long pathHoles,
 			Integer maxPermissibleSpeed, String source, String destination) {
 		super();
 		this.pathName = pathName;

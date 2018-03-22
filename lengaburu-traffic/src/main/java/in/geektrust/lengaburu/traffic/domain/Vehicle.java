@@ -2,7 +2,7 @@ package in.geektrust.lengaburu.traffic.domain;
 
 
 
-public final class Vehicles {
+public final class Vehicle {
 	
 	
 	private final Weather[] weather;
@@ -10,7 +10,7 @@ public final class Vehicles {
 	private final Integer vechileSpeed;
 	private final Integer vechilePathHoleTime;
 
-	public Vehicles(Weather[] weather, String vechileType,
+	public Vehicle(Weather[] weather, String vechileType,
 			Integer vechileSpeed, Integer vechilePathHoleTime) {
 		super();
 		this.weather = weather;
