@@ -125,12 +125,11 @@ public final class Vehicle {
 		
 		int changeInPothHoles = inputWeather.getPercentageChangeInNumberOfPathHoles();
 		int vehicleSpeed = this.getVechileSpeed() > orbit.getTrafficSpeed() ?
-				orbit.getTrafficSpeed() : this.getVechileSpeed();
+							orbit.getTrafficSpeed() : this.getVechileSpeed();
 		int timeTakenToTravelCrater = this.getVechilePathHoleTime();
-		
+		int cratersCount = (orbit.getCraterCount()+ (orbit.getCraterCount() * changeInPothHoles / 100));
 		int totalTimeInMinutes = (int) (((float)orbit.getOrbitLength() / (float)vehicleSpeed) * 60
-				+ (orbit.getCraterCount()+ (orbit.getCraterCount() * changeInPothHoles / 100))
-						* timeTakenToTravelCrater);
+				+ cratersCount * timeTakenToTravelCrater);
 		return totalTimeInMinutes;
 	}
 	

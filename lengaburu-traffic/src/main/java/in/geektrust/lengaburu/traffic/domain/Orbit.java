@@ -113,10 +113,9 @@ public final class Orbit {
 	 * @param destinationMap
 	 * @param noOfWaysOrbitCanBeFormed
 	 */
-	private static void fetchNoOfWaysOrbitsCanbeFormed(
-			String[] desiredPlacesToBeReached,
-			Map<String, Set<Orbit>> destinationMap,
-			List<Orbit[]> noOfWaysOrbitCanBeFormed) {
+	private static void fetchNoOfWaysOrbitsCanbeFormed(String[] desiredPlacesToBeReached,Map<String, Set<Orbit>> destinationMap,
+													  List<Orbit[]> noOfWaysOrbitCanBeFormed) {
+		
 		for(int i=0;i<desiredPlacesToBeReached.length;i++){
 			String desiredPlace = desiredPlacesToBeReached[i];
 			
@@ -138,31 +137,26 @@ public final class Orbit {
 				case 2:
 					//for no of intermidiate destination to be 1
 					for(Orbit destinationOrbit : orbitSet){
-						if(!(orbit.getOrbitEndingPoint().equalsIgnoreCase(destinationOrbit.getOrbitEndingPoint())&&
-							 orbit.getOrbitStartingPoint().equalsIgnoreCase(destinationOrbit.getOrbitStartingPoint())) &&
-						   !noOfWaysOrbitCanBeFormed.contains(new Orbit[]{orbit,destinationOrbit}) &&
-						   !noOfWaysOrbitCanBeFormed.contains(new Orbit[]{destinationOrbit,orbit}))
+						if(IsOrbitHasNotAdded(noOfWaysOrbitCanBeFormed, orbit,
+								destinationOrbit))
 						noOfWaysOrbitCanBeFormed.add(new Orbit[]{orbit,destinationOrbit});
 					}
 					break;
 				default : break;
 				}
 				
-				/*if(destinationMap.size() == 2){
-					//for no of intermidiate destination to be 1
-					for(Orbit destinationOrbit : orbitSet){
-						if(!(orbit.getOrbitEndingPoint().equalsIgnoreCase(destinationOrbit.getOrbitEndingPoint())&&
-							 orbit.getOrbitStartingPoint().equalsIgnoreCase(destinationOrbit.getOrbitStartingPoint())) &&
-						   !noOfWaysOrbitCanBeFormed.contains(new Orbit[]{orbit,destinationOrbit}) &&
-						   !noOfWaysOrbitCanBeFormed.contains(new Orbit[]{destinationOrbit,orbit}))
-						noOfWaysOrbitCanBeFormed.add(new Orbit[]{orbit,destinationOrbit});
-					}
-				} else if(destinationMap.size() == 1){
-					//if no intermidiate destination exsists
-					noOfWaysOrbitCanBeFormed.add(new Orbit[]{orbit});
-				}			*/	
+				
 			}
 		}
+	}
+
+	private static boolean IsOrbitHasNotAdded(
+			List<Orbit[]> noOfWaysOrbitCanBeFormed, Orbit orbit,
+			Orbit destinationOrbit) {
+		return !(orbit.getOrbitEndingPoint().equalsIgnoreCase(destinationOrbit.getOrbitEndingPoint())&&
+			 orbit.getOrbitStartingPoint().equalsIgnoreCase(destinationOrbit.getOrbitStartingPoint())) &&
+		   !noOfWaysOrbitCanBeFormed.contains(new Orbit[]{orbit,destinationOrbit}) &&
+		   !noOfWaysOrbitCanBeFormed.contains(new Orbit[]{destinationOrbit,orbit});
 	}
 
 	/**
