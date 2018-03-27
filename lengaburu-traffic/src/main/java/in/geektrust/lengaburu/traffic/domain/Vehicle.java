@@ -9,8 +9,6 @@ import java.util.List;
  *
  */
 public final class Vehicle {
-	
-
 
 	private final Weather[] weather;
 	private final String vechileType;

@@ -12,8 +12,14 @@ public class ProblemContext implements AppContext{
 	private static final String problem1OutputMessage = "Vehicle %s on %s";
 	private static final String problem2OutputMessage = "Vehicle %s to %s via %s and %s via %s";
 	
+	public ProblemContext(String problemName) {
+		super();
+		this.problemName = problemName;
+		selectOutputMessage();
+	}
+	
 	@Override
-	public void solveProblem(Orbit[] orbits, String weather, String source,
+	public OutputMessageGenerator solveProblem(Orbit[] orbits, String weather, String source,
 			String[] desiredPlacesToBeReached) {
 		
 		Orbit[] optimalOrbit = null;
@@ -28,52 +34,52 @@ public class ProblemContext implements AppContext{
 			Weather weatherObject = vehicle.fetchWeather(weather);
 			Orbit [] minimalCalculatedOrbit = vehicle.
 					fetchOrbitWhichTakesMinimumTimeToTravel(possibleOrbit, weatherObject);
+			
 			if(minimalTimeTakenToTravel > vehicle.getMinimumTimetakenByVehicleToTravelOrbit()){
+				
 				minimalTimeTakenToTravel = vehicle.getMinimumTimetakenByVehicleToTravelOrbit();
 				optimalOrbit = minimalCalculatedOrbit;
 				optimalVehicle = vehicle;
 			}
 		}
-		
+		OutputMessageGenerator outputMessageGenerator = null;
 		switch (problemName) {
 		case "Problem1":
-			System.out.printf(outputMessage, optimalVehicle.getVechileType(), optimalOrbit[0].getOrbitName());
+			outputMessageGenerator = new  OutputMessageGenerator(System.out);
+			outputMessageGenerator.print(outputMessage, new String[]{optimalVehicle.getVechileType(), optimalOrbit[0].getOrbitName()});
+			//System.out.printf(outputMessage, optimalVehicle.getVechileType(), optimalOrbit[0].getOrbitName());
 			break;
 		case "Problem2" :
-			processProblem2Output(source, optimalOrbit, optimalVehicle);
+			Orbit sourceOrbit = optimalOrbit[0];
+			Orbit destinationOrbit = optimalOrbit[1];
 			
+			//------------------------------ Orbit rearranged if required
+			if(destinationOrbit.getOrbitStartingPoint().equalsIgnoreCase(source)){
+				sourceOrbit = optimalOrbit[1];
+				destinationOrbit = optimalOrbit[0];
+			}
+			
+			if(destinationOrbit.getOrbitEndingPoint().equalsIgnoreCase(source)){
+				sourceOrbit = optimalOrbit[1];
+				String src = optimalOrbit[1].getOrbitStartingPoint();
+				sourceOrbit.setOrbitEndingPoint(src);
+				sourceOrbit.setOrbitStartingPoint(source);
+				destinationOrbit = optimalOrbit[0];
+			}
+			//---------------------------------
+			
+			outputMessageGenerator = new  OutputMessageGenerator(System.out);
+			outputMessageGenerator.print(outputMessage, new String[]{optimalVehicle.getVechileType(),
+					sourceOrbit.getOrbitEndingPoint(),
+					sourceOrbit.getOrbitName(),
+					destinationOrbit.getOrbitEndingPoint().equalsIgnoreCase(sourceOrbit.getOrbitEndingPoint())?
+					destinationOrbit.getOrbitStartingPoint():destinationOrbit.getOrbitEndingPoint()	,
+					destinationOrbit.getOrbitName()});
 			break;
 		default:
 			break;
 		}
-	}
-
-	private void processProblem2Output(String source, Orbit[] optimalOrbit,
-			Vehicle optimalVehicle) {
-		Orbit sourceOrbit = optimalOrbit[0];
-		Orbit destinationOrbit = optimalOrbit[1];
-		
-		//------------------------------ Orbit rearranged if required
-		if(destinationOrbit.getOrbitStartingPoint().equalsIgnoreCase(source)){
-			sourceOrbit = optimalOrbit[1];
-			destinationOrbit = optimalOrbit[0];
-		}
-		
-		if(destinationOrbit.getOrbitEndingPoint().equalsIgnoreCase(source)){
-			sourceOrbit = optimalOrbit[1];
-			String src = optimalOrbit[1].getOrbitStartingPoint();
-			sourceOrbit.setOrbitEndingPoint(src);
-			sourceOrbit.setOrbitStartingPoint(source);
-			destinationOrbit = optimalOrbit[0];
-		}
-		//---------------------------------
-		System.out.printf(outputMessage,
-				optimalVehicle.getVechileType(),
-				sourceOrbit.getOrbitEndingPoint(),
-				sourceOrbit.getOrbitName(),
-				destinationOrbit.getOrbitEndingPoint().equalsIgnoreCase(sourceOrbit.getOrbitEndingPoint())?
-				destinationOrbit.getOrbitStartingPoint():destinationOrbit.getOrbitEndingPoint()	,
-				destinationOrbit.getOrbitName());
+		return outputMessageGenerator;
 	}
 	
 	public void selectOutputMessage(){
@@ -90,10 +96,6 @@ public class ProblemContext implements AppContext{
 		}
 	}
 	
-	public ProblemContext(String problemName) {
-		super();
-		this.problemName = problemName;
-		selectOutputMessage();
-	}
+
 
 }

@@ -24,6 +24,6 @@ public interface AppContext {
 	
 	public final static Vehicle[] vehicles = new Vehicle[]{superCar,bike,tuktuk};
 	
-	public void solveProblem(Orbit [] routes,String weather,String source,String[] desiredPlacesToBeReached);
+	public OutputMessageGenerator solveProblem(Orbit [] routes,String weather,String source,String[] desiredPlacesToBeReached);
 	
 }

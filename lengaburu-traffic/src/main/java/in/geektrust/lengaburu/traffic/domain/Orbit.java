@@ -67,12 +67,12 @@ public final class Orbit {
 	
 	
 	/**
-	 * Gets the total travelling time required for a vehcile to travel a given orbit , weather.
+	 * Gets the total traveling time required for a vehicle to travel a this orbit , weather.
 	 * @param vehicle 
 	 * @param inputWeather
-	 * @return total travelling time
+	 * @return total traveling time
 	 */
-	public int getTimeToTravel(Vehicle vehicle,Weather inputWeather){
+	public int getOrbitalTime(Vehicle vehicle,Weather inputWeather){
 		int percentageChangeInCrater = inputWeather.getPercentageChangeInNumberOfPathHoles();
 		int vehicleSpeed = vehicle.getVechileSpeed() > this.getTrafficSpeed() ?
 				this.getTrafficSpeed() : vehicle.getVechileSpeed();
