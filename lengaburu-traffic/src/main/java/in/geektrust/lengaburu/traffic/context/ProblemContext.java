@@ -5,6 +5,7 @@ import java.util.List;
 import in.geektrust.lengaburu.traffic.domain.Orbit;
 import in.geektrust.lengaburu.traffic.domain.Vehicle;
 import in.geektrust.lengaburu.traffic.domain.Weather;
+import in.geektrust.lengaburu.traffic.utils.OutputMessageGenerator;
 
 public class ProblemContext implements AppContext{
 	private String problemName;
@@ -46,7 +47,7 @@ public class ProblemContext implements AppContext{
 		switch (problemName) {
 		case "Problem1":
 			outputMessageGenerator = new  OutputMessageGenerator(System.out);
-			outputMessageGenerator.print(outputMessage, new String[]{optimalVehicle.getVechileType(), optimalOrbit[0].getOrbitName()});
+			outputMessageGenerator.setFormatter(outputMessage, new String[]{optimalVehicle.getVechileType(), optimalOrbit[0].getOrbitName()});
 			//System.out.printf(outputMessage, optimalVehicle.getVechileType(), optimalOrbit[0].getOrbitName());
 			break;
 		case "Problem2" :
@@ -69,7 +70,7 @@ public class ProblemContext implements AppContext{
 			//---------------------------------
 			
 			outputMessageGenerator = new  OutputMessageGenerator(System.out);
-			outputMessageGenerator.print(outputMessage, new String[]{optimalVehicle.getVechileType(),
+			outputMessageGenerator.setFormatter(outputMessage, new String[]{optimalVehicle.getVechileType(),
 					sourceOrbit.getOrbitEndingPoint(),
 					sourceOrbit.getOrbitName(),
 					destinationOrbit.getOrbitEndingPoint().equalsIgnoreCase(sourceOrbit.getOrbitEndingPoint())?

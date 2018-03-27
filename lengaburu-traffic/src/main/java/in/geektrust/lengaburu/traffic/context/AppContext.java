@@ -3,6 +3,7 @@ package in.geektrust.lengaburu.traffic.context;
 import in.geektrust.lengaburu.traffic.domain.Orbit;
 import in.geektrust.lengaburu.traffic.domain.Vehicle;
 import in.geektrust.lengaburu.traffic.domain.Weather;
+import in.geektrust.lengaburu.traffic.utils.OutputMessageGenerator;
 
 /**
  * Contains information specifically in context with current problems

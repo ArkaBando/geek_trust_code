@@ -31,7 +31,9 @@ public class LengaburuTrafficProblem1 {
 		
 		
 		ProblemContext problemContext =  new ProblemContext("Problem1");
-		problemContext.solveProblem(new Orbit[]{orbit1,orbit2}, weather, source, new String[]{destination});
+		problemContext.
+		solveProblem(new Orbit[]{orbit1,orbit2}, weather, source, new String[]{destination})
+		.print();
 	
 	}
 	
