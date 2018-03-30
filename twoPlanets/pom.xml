@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>in.geektrust</groupId>
-  <artifactId>intergalactic_cricket_game</artifactId>
+  <artifactId>twoPlanets</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>intergalactic_cricket_game</name>
+  <name>twoPlanets</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -60,7 +60,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<mainClass>in.geektrust.intergalactic_cricket_game.App</mainClass>
+					<mainClass>in.geektrust.twoPlanets.App</mainClass>
 					<cleanupDaemonThreads>false</cleanupDaemonThreads>
 				</configuration>
 			</plugin>

@@ -73,7 +73,7 @@ public final class Orbit {
 	 * @param source
 	 * @return
 	 */
-	public static List<Orbit[]> generatePossibleOrbitsforDesiredDestinations(Orbit[] orbitsAvailable,String[] desiredPlacesToBeReached,String source){
+	public  List<Orbit[]> generatePossibleOrbitsforDesiredDestinations(Orbit[] orbitsAvailable,String[] desiredPlacesToBeReached,String source){
 		//to store the ***set of orbit** for reaching a desired destination.
 		Map<String,Set<Orbit>> destinationMap = new HashMap<>();
 		
@@ -94,7 +94,7 @@ public final class Orbit {
 	 * @param destinationMap
 	 * @param noOfWaysOrbitCanBeFormed
 	 */
-	private static void fetchNoOfWaysOrbitsCanbeFormed(String[] desiredPlacesToBeReached,Map<String, Set<Orbit>> destinationMap,
+	private void fetchNoOfWaysOrbitsCanbeFormed(String[] desiredPlacesToBeReached,Map<String, Set<Orbit>> destinationMap,
 													  List<Orbit[]> noOfWaysOrbitCanBeFormed) {
 		
 		for(int i=0;i<desiredPlacesToBeReached.length;i++){
@@ -131,7 +131,7 @@ public final class Orbit {
 		}
 	}
 
-	private static boolean IsOrbitHasNotAdded(
+	private boolean IsOrbitHasNotAdded(
 			List<Orbit[]> noOfWaysOrbitCanBeFormed, Orbit orbit,
 			Orbit destinationOrbit) {
 		return !(orbit.getOrbitEndingPoint().equalsIgnoreCase(destinationOrbit.getOrbitEndingPoint())&&
@@ -146,7 +146,7 @@ public final class Orbit {
 	 * @param desiredPlacesToBeReached
 	 * @param destinationMap
 	 */
-	public static void prepareDestinationMap(Orbit[] orbitsAvailable,
+	public void prepareDestinationMap(Orbit[] orbitsAvailable,
 			String[] desiredPlacesToBeReached,
 			Map<String, Set<Orbit>> destinationMap) {
 		String destinationName;
@@ -177,7 +177,7 @@ public final class Orbit {
 	 * @param destinationName
 	 * @param orbit
 	 */
-	private static void processDestinationMap(
+	private void processDestinationMap(
 			Map<String, Set<Orbit>> destinationMap, String destinationName,
 			Orbit orbit) {
 		if(!destinationMap.containsKey(destinationName)){
